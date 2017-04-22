@@ -47,4 +47,17 @@ public class GameMasterScript : MonoBehaviour {
 		goldAmount += script.goldAmountOnPlay;
 
 	}
+
+	public bool CanBuyThisCard(GameObject card)
+	{
+		CardScript script = card.GetComponent<CardScript>();
+
+		if (goldAmount >= script.cost)
+		{
+			goldAmount -= script.cost;
+			return true;
+		}
+
+		return false;
+	}
 }

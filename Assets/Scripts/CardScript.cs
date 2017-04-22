@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CardScript : MonoBehaviour {
 	public int goldAmountOnPlay = 0;
+	public int cost = 0;
 
 	// Use this for initialization
 	void Start () {
