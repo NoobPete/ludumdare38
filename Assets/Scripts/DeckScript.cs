@@ -24,6 +24,8 @@ public class DeckScript : MonoBehaviour {
 	public bool isFaceUp;
 	
 	public GameObject basicCard;
+	[Range(0f, 1f)]
+	public float movingSpeedOfCard;
 
 	// Use this for initialization
 	void Start () {
@@ -52,8 +54,12 @@ public class DeckScript : MonoBehaviour {
 
 		for (int i = 0; i < cardStack.Count; i++)
 		{
-			cardStack[i].transform.position = this.transform.position + this.transform.up * offset * i;
+			Vector3 targetPosition = this.transform.position + this.transform.up * offset * i;
+
+			cardStack[i].transform.position = Vector3.Lerp(cardStack[i].transform.position, targetPosition, movingSpeedOfCard);
+
 			cardStack[i].transform.rotation = this.transform.rotation;
+
 			if (isFaceUp)
 			{
 				cardStack[i].transform.Rotate(cardStack[i].transform.right, -90);
@@ -82,8 +88,26 @@ public class DeckScript : MonoBehaviour {
 			return element;
 		} else
 		{
-			return null;
+			int cards = mainDiscard.CardCount();
+			for (int i = 0; i < cards; i++)
+			{
+				AddCardToPile(mainDiscard.TakeTopCard());
+			}
+
+			if (cardStack.Count == 0)
+			{
+				return null;
+			}
+
+			ScrambleCards();
+
+			return TakeTopCard();
 		}
+	}
+
+	public int CardCount()
+	{
+		return cardStack.Count;
 	}
 
 	public void ScrambleCards()
