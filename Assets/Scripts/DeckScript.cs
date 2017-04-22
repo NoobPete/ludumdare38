@@ -58,16 +58,14 @@ public class DeckScript : MonoBehaviour {
 
 			cardStack[i].transform.position = Vector3.Lerp(cardStack[i].transform.position, targetPosition, movingSpeedOfCard);
 
-			cardStack[i].transform.rotation = this.transform.rotation;
-
 			if (isFaceUp)
 			{
-				cardStack[i].transform.Rotate(cardStack[i].transform.right, -90);
-			}
-			else
+				cardStack[i].transform.rotation = this.transform.rotation * Quaternion.Euler(270f, 180f, 0f);
+			} else
 			{
-				cardStack[i].transform.Rotate(cardStack[i].transform.right, 90);
+				cardStack[i].transform.rotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
 			}
+
 			cardStack[i].transform.Rotate(this.transform.forward, cardStackRotation[i]);
 		}
 	}

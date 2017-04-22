@@ -45,7 +45,7 @@ public class HandScript : MonoBehaviour {
 
             cardStack[i].transform.position = Vector3.Lerp(cardStack[i].transform.position, targetPosition, movingSpeedOfCard);
 
-			cardStack[i].transform.rotation = Quaternion.Lerp(cardStack[i].transform.rotation, this.transform.rotation, movingSpeedOfCard);
+			cardStack[i].transform.rotation = Quaternion.Lerp(cardStack[i].transform.rotation, this.transform.rotation * Quaternion.Euler(0, 180f, 0), movingSpeedOfCard);
 		}
 	}
 
