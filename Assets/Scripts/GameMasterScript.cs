@@ -56,6 +56,9 @@ public class GameMasterScript : MonoBehaviour {
 		}
 
 		goldAmount += script.goldAmountOnPlay;
+		actionPointsLeft += script.numberOfNewActionPoints;
+		HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
+		
 
 	}
 
@@ -71,6 +74,21 @@ public class GameMasterScript : MonoBehaviour {
 			return true;
 		}
 
+		return false;
+	}
+
+	public bool CanPlayThisCard(GameObject card)
+	{
+		CardScript script = card.GetComponent<CardScript>();
+
+		if (script.isActionCard)
+		{
+			if (actionPointsLeft > 0)
+			{
+				actionPointsLeft--;
+				return true;
+			}
+		}
 		return false;
 	}
 }

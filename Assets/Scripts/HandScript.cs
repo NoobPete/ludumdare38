@@ -64,7 +64,10 @@ public class HandScript : MonoBehaviour {
 	{
 		for (int i = 0; i < numberOfCards; i++)
 		{
-			DrawCardsFromDeck();
+			if (!DrawCardsFromDeck())
+			{
+				return false;
+			}
 		}
 		return true;
 	}
@@ -88,9 +91,12 @@ public class HandScript : MonoBehaviour {
 	{
 		if (cardStack.Contains(card))
 		{
-			cardStack.Remove(card);
-			GameMasterScript.main.ApplyCardEffects(card);
-			DeckScript.mainDiscard.AddCardToPile(card);
+			if (GameMasterScript.main.CanPlayThisCard(card))
+			{
+				cardStack.Remove(card);
+				GameMasterScript.main.ApplyCardEffects(card);
+				DeckScript.mainDiscard.AddCardToPile(card);
+			}
 		}
 		return false;
 	}
