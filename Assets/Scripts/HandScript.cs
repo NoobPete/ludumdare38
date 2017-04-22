@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HandScript : MonoBehaviour {
 	public static HandScript main;
+    [Range(0f,1f)]
+    public float hoverOffset;
 
 	[Range(0.1f, 1f)]
 	public float cardSpacing;
@@ -26,7 +28,13 @@ public class HandScript : MonoBehaviour {
 	void Update () {
 		for (int i = 0; i < cardStack.Count; i++)
 		{
-			cardStack[i].transform.position = this.transform.position + this.transform.forward * cardForwardOffset * i + this.transform.right * cardSpacing * i;
+            if (cardStack[i].GetComponent<HoverOver>().isHoveringOver)
+            {
+                cardStack[i].transform.position = this.transform.position + this.transform.forward * cardForwardOffset * i + this.transform.right * cardSpacing * i + this.transform.up * hoverOffset;
+            }
+            else {
+                cardStack[i].transform.position = this.transform.position + this.transform.forward * cardForwardOffset * i + this.transform.right * cardSpacing * i;
+            }
 			cardStack[i].transform.rotation = this.transform.rotation;
 			cardStack[i].transform.Rotate(cardStack[i].transform.up, cardRotation);
 		}
