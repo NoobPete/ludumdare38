@@ -12,7 +12,7 @@ public class HandScriptEditor : Editor
 		HandScript myScript = (HandScript)target;
 		if (GUILayout.Button("Draw card"))
 		{
-			myScript.AddCardToHand(DeckScript.main.TakeTopCard());
+			myScript.AddCardToHand(DeckScript.mainDeck.TakeTopCard());
 		}
 
 		if (GUILayout.Button("Nope"))

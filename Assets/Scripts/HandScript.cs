@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,14 +45,13 @@ public class HandScript : MonoBehaviour {
 
             cardStack[i].transform.position = Vector3.Lerp(cardStack[i].transform.position, targetPosition, movingSpeedOfCard);
 
-			cardStack[i].transform.rotation = this.transform.rotation;
-			cardStack[i].transform.Rotate(cardStack[i].transform.up, cardRotation);
+			cardStack[i].transform.rotation = Quaternion.Lerp(cardStack[i].transform.rotation, this.transform.rotation, movingSpeedOfCard);
 		}
 	}
 
 	public bool DrawCardsFromDeck()
 	{
-		GameObject element = DeckScript.main.TakeTopCard();
+		GameObject element = DeckScript.mainDeck.TakeTopCard();
 		if (element != null)
 		{
 			AddCardToHand(element);
@@ -80,5 +80,16 @@ public class HandScript : MonoBehaviour {
 		{
 
 		}
+	}
+
+
+	public bool PlayCard(GameObject card)
+	{
+		if (cardStack.Contains(card))
+		{
+			cardStack.Remove(card);
+			DeckScript.mainDiscard.AddCardToPile(card);
+		}
+		return false;
 	}
 }

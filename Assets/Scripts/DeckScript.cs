@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DeckScript : MonoBehaviour {
-	public static DeckScript main;
+	public static DeckScript mainDeck;
+	public static DeckScript mainDiscard;
 
 	[Header("Card Stack Properties")]
 	[Range(0.001f,0.1f)]
@@ -13,21 +14,29 @@ public class DeckScript : MonoBehaviour {
 	[Range(0f, 2f)]
 	public float scambleOffset;
 	private float currentCardSpacingOffset = 0;
+	public bool isDeck;
+	public bool isDiscardPile;
 
 	public int amountOfCardsAtStart = 10;
 
 	private List<GameObject> cardStack;
 	private List<float> cardStackRotation;
-	public bool faceUp;
+	public bool isFaceUp;
 	
 	public GameObject basicCard;
 
 	// Use this for initialization
 	void Start () {
-		main = this;
+		if (isDeck)
+		{
+			mainDeck = this;
+		}
+		if (isDiscardPile)
+		{
+			mainDiscard = this;
+		}
 		cardStack = new List<GameObject>();
 		cardStackRotation = new List<float>();
-		faceUp = false;
 
 		for (int i = 0; i < amountOfCardsAtStart; i++)
 		{
@@ -45,7 +54,14 @@ public class DeckScript : MonoBehaviour {
 		{
 			cardStack[i].transform.position = this.transform.position + this.transform.up * offset * i;
 			cardStack[i].transform.rotation = this.transform.rotation;
-			cardStack[i].transform.Rotate(cardStack[i].transform.right, 90);
+			if (isFaceUp)
+			{
+				cardStack[i].transform.Rotate(cardStack[i].transform.right, -90);
+			}
+			else
+			{
+				cardStack[i].transform.Rotate(cardStack[i].transform.right, 90);
+			}
 			cardStack[i].transform.Rotate(this.transform.forward, cardStackRotation[i]);
 		}
 	}
