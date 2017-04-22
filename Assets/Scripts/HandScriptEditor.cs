@@ -14,9 +14,5 @@ public class HandScriptEditor : Editor
 		{
 			myScript.AddCardToHand(DeckScript.mainDeck.TakeTopCard());
 		}
-
-		if (GUILayout.Button("Nope"))
-		{
-		}
 	}
 }

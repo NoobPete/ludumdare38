@@ -76,9 +76,10 @@ public class HandScript : MonoBehaviour {
 
 	public void DiscardAllCardsInHand()
 	{
-		foreach (GameObject o in cardStack)
+		foreach (GameObject o in  new List<GameObject>(cardStack))
 		{
-
+			cardStack.Remove(o);
+			DeckScript.mainDiscard.AddCardToPile(o);
 		}
 	}
 
