@@ -14,7 +14,8 @@ public class DeckScript : MonoBehaviour {
 	public float scambleOffset;
 	private float currentCardSpacingOffset = 0;
 
-	[Space]
+	public int amountOfCardsAtStart = 10;
+
 	private List<GameObject> cardStack;
 	private List<float> cardStackRotation;
 	public bool faceUp;
@@ -27,6 +28,11 @@ public class DeckScript : MonoBehaviour {
 		cardStack = new List<GameObject>();
 		cardStackRotation = new List<float>();
 		faceUp = false;
+
+		for (int i = 0; i < amountOfCardsAtStart; i++)
+		{
+			AddBasicCardToPile();
+		}
 	}
 	
 	// Update is called once per frame
@@ -52,9 +58,16 @@ public class DeckScript : MonoBehaviour {
 
 	public GameObject TakeTopCard()
 	{
-		GameObject element = cardStack[0];
-		cardStack.Remove(element);
-		return element;
+		if (cardStack.Count > 0)
+		{
+			GameObject element = cardStack[0];
+			cardStack.RemoveAt(0);
+			cardStackRotation.RemoveAt(0);
+			return element;
+		} else
+		{
+			return null;
+		}
 	}
 
 	public void ScrambleCards()

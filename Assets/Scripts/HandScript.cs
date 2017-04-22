@@ -22,6 +22,8 @@ public class HandScript : MonoBehaviour {
 	void Start () {
 		main = this;
 		cardStack = new List<GameObject>();
+
+		DrawCardsFromDeck(5);
 	}
 	
 	// Update is called once per frame
@@ -40,8 +42,36 @@ public class HandScript : MonoBehaviour {
 		}
 	}
 
+	public bool DrawCardsFromDeck()
+	{
+		GameObject element = DeckScript.main.TakeTopCard();
+		if (element != null)
+		{
+			AddCardToHand(element);
+			return true;
+		}
+		return false;
+	}
+
+	public bool DrawCardsFromDeck(int numberOfCards)
+	{
+		for (int i = 0; i < numberOfCards; i++)
+		{
+			DrawCardsFromDeck();
+		}
+		return true;
+	}
+
 	public void AddCardToHand(GameObject card)
 	{
 		cardStack.Add(card);
+	}
+
+	public void DiscardAllCardsInHand()
+	{
+		foreach (GameObject o in cardStack)
+		{
+
+		}
 	}
 }
