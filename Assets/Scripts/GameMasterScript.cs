@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameMasterScript : MonoBehaviour {
+public class GameMasterScript : MonoBehaviour
+{
 	public static GameMasterScript main;
 
 	public int gameTurnNumber = 0;
@@ -13,7 +14,8 @@ public class GameMasterScript : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 		main = this;
 
 		ResetStats();
@@ -27,8 +29,9 @@ public class GameMasterScript : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
-		
+	void Update()
+	{
+
 	}
 
 	public void EndTurn()
@@ -58,7 +61,7 @@ public class GameMasterScript : MonoBehaviour {
 		goldAmount += script.goldAmountOnPlay;
 		actionPointsLeft += script.numberOfNewActionPoints;
 		HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
-		
+
 
 	}
 
@@ -88,7 +91,8 @@ public class GameMasterScript : MonoBehaviour {
 				actionPointsLeft--;
 				return true;
 			}
-		} else
+		}
+		else
 		{
 			return true;
 		}

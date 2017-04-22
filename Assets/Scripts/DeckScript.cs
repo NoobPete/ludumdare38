@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeckScript : MonoBehaviour {
+public class DeckScript : MonoBehaviour
+{
 	public static DeckScript mainDeck;
 	public static DeckScript mainDiscard;
 
 	[Header("Card Stack Properties")]
-	[Range(0.001f,0.1f)]
+	[Range(0.001f, 0.1f)]
 	public float cardSpacing;
 	[Range(0f, 30f)]
 	public float randomCardRotation;
@@ -22,13 +23,14 @@ public class DeckScript : MonoBehaviour {
 	private List<GameObject> cardStack;
 	private List<float> cardStackRotation;
 	public bool isFaceUp;
-	
+
 	public GameObject basicCard;
 	[Range(0f, 1f)]
 	public float movingSpeedOfCard;
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 		if (isDeck)
 		{
 			mainDeck = this;
@@ -45,9 +47,10 @@ public class DeckScript : MonoBehaviour {
 			AddBasicCardToPile();
 		}
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 		currentCardSpacingOffset = currentCardSpacingOffset * 0.95f;
 
 		float offset = cardSpacing + currentCardSpacingOffset;
@@ -61,7 +64,8 @@ public class DeckScript : MonoBehaviour {
 			if (isFaceUp)
 			{
 				cardStack[i].transform.rotation = this.transform.rotation * Quaternion.Euler(270f, 180f, 0f);
-			} else
+			}
+			else
 			{
 				cardStack[i].transform.rotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
 			}
@@ -70,21 +74,23 @@ public class DeckScript : MonoBehaviour {
 		}
 	}
 
-    public void AddCardToPile(GameObject card)
-    {
+	public void AddCardToPile(GameObject card)
+	{
 		cardStack.Add(card);
 		cardStackRotation.Add(Random.Range(-randomCardRotation, randomCardRotation));
-    }
+	}
 
 	public GameObject TakeTopCard()
 	{
 		if (cardStack.Count > 0)
 		{
-			GameObject element = cardStack[cardStack.Count-1];
-			cardStack.RemoveAt(cardStack.Count - 1);
-			cardStackRotation.RemoveAt(cardStack.Count - 1);
+			int target = cardStack.Count - 1;
+			GameObject element = cardStack[target];
+			cardStack.RemoveAt(target);
+			cardStackRotation.RemoveAt(target);
 			return element;
-		} else
+		}
+		else
 		{
 			int cards = mainDiscard.CardCount();
 			for (int i = 0; i < cards; i++)
