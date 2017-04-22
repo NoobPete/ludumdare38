@@ -80,9 +80,9 @@ public class DeckScript : MonoBehaviour {
 	{
 		if (cardStack.Count > 0)
 		{
-			GameObject element = cardStack[0];
-			cardStack.RemoveAt(0);
-			cardStackRotation.RemoveAt(0);
+			GameObject element = cardStack[cardStack.Count-1];
+			cardStack.RemoveAt(cardStack.Count - 1);
+			cardStackRotation.RemoveAt(cardStack.Count - 1);
 			return element;
 		} else
 		{

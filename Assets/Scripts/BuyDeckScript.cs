@@ -60,11 +60,12 @@ public class BuyDeckScript : MonoBehaviour {
 	{
 		if (cardStack.Count > 0)
 		{
-			if (GameMasterScript.main.CanBuyThisCard(cardStack[0])) {
-				GameObject element = cardStack[0];
-				cardStack.RemoveAt(0);
+			if (GameMasterScript.main.CanBuyThisCard(cardStack[cardStack.Count-1])) {
+				GameObject element = cardStack[cardStack.Count - 1];
+				cardStack.RemoveAt(cardStack.Count - 1);
 				return element;
 			}
+            
 		}
 
 		return null;
