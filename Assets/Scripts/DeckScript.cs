@@ -8,6 +8,9 @@ public class DeckScript : MonoBehaviour {
 	public float cardSpacing;
 	[Range(0f, 30f)]
 	public float randomCardRotation;
+	[Range(0f, 2f)]
+	public float scambleOffset;
+	private float currentCardSpacingOffset = 0;
 
 	[Space]
 	private List<GameObject> cardStack;
@@ -21,19 +24,17 @@ public class DeckScript : MonoBehaviour {
 		cardStack = new List<GameObject>();
 		cardStackRotation = new List<float>();
 		faceUp = false;
-
-		AddCardToPile(Instantiate<GameObject>(basicCard));
-		AddCardToPile(Instantiate<GameObject>(basicCard));
-		AddCardToPile(Instantiate<GameObject>(basicCard));
-		AddCardToPile(Instantiate<GameObject>(basicCard));
-		AddCardToPile(Instantiate<GameObject>(basicCard));
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		currentCardSpacingOffset = currentCardSpacingOffset * 0.95f;
+
+		float offset = cardSpacing + currentCardSpacingOffset;
+
 		for (int i = 0; i < cardStack.Count; i++)
 		{
-			cardStack[i].transform.position = this.transform.position + this.transform.up * cardSpacing * i;
+			cardStack[i].transform.position = this.transform.position + this.transform.up * offset * i;
 			cardStack[i].transform.rotation = this.transform.rotation;
 			cardStack[i].transform.Rotate(cardStack[i].transform.right, 90);
 			cardStack[i].transform.Rotate(this.transform.forward, cardStackRotation[i]);
@@ -55,6 +56,8 @@ public class DeckScript : MonoBehaviour {
 
 	public void ScrambleCards()
 	{
+		currentCardSpacingOffset = scambleOffset;
+
 		int n = cardStack.Count;
 		while (n > 1)
 		{
@@ -65,5 +68,10 @@ public class DeckScript : MonoBehaviour {
 			cardStack[k] = cardStack[n];
 			cardStack[n] = value;
 		}
+	}
+
+	public void AddBasicCardToPile()
+	{
+		AddCardToPile(Instantiate<GameObject>(basicCard));
 	}
 }
