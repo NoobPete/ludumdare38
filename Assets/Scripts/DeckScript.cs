@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DeckScript : MonoBehaviour {
+	public static DeckScript main;
+
 	[Header("Card Stack Properties")]
 	[Range(0.001f,0.1f)]
 	public float cardSpacing;
@@ -21,6 +23,7 @@ public class DeckScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		main = this;
 		cardStack = new List<GameObject>();
 		cardStackRotation = new List<float>();
 		faceUp = false;
