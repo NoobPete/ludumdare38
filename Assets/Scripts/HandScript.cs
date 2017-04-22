@@ -89,6 +89,7 @@ public class HandScript : MonoBehaviour {
 		if (cardStack.Contains(card))
 		{
 			cardStack.Remove(card);
+			GameMasterScript.main.ApplyCardEffects(card);
 			DeckScript.mainDiscard.AddCardToPile(card);
 		}
 		return false;
