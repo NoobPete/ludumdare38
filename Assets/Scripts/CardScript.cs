@@ -6,6 +6,13 @@ public class CardScript : MonoBehaviour {
 	public int goldAmountOnPlay = 0;
 	public int cost = 0;
 
+	public int numberOfCardsToDraw = 0;
+	public int numberOfNewActionPoints = 0;
+
+	[Header("Action card")]
+	public bool isActionCard = false;
+
+
 	// Use this for initialization
 	void Start () {
 		

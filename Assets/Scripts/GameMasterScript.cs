@@ -7,14 +7,25 @@ public class GameMasterScript : MonoBehaviour {
 	public static GameMasterScript main;
 
 	public int gameTurnNumber = 0;
+	public int actionPointsLeft;
 	public int goldAmount;
+	public int buyPoints;
 
 
 	// Use this for initialization
 	void Start () {
 		main = this;
+
+		ResetStats();
 	}
-	
+
+	private void ResetStats()
+	{
+		actionPointsLeft = 1;
+		goldAmount = 0;
+		buyPoints = 1;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -27,7 +38,7 @@ public class GameMasterScript : MonoBehaviour {
 
 		gameTurnNumber++;
 
-		goldAmount = 0;
+		ResetStats();
 
 		for (int i = 0; i < 5; i++)
 		{
@@ -52,9 +63,11 @@ public class GameMasterScript : MonoBehaviour {
 	{
 		CardScript script = card.GetComponent<CardScript>();
 
-		if (goldAmount >= script.cost)
+		if (goldAmount >= script.cost && buyPoints > 0)
 		{
 			goldAmount -= script.cost;
+			buyPoints -= 1;
+
 			return true;
 		}
 
