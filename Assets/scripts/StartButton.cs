@@ -16,8 +16,9 @@ public class StartButton : MonoBehaviour
 
     }
 
-    public void ButtonClick()
+    public void StartGame(int difficulty)
     {
-        SceneManager.LoadScene("main");
+		PlayerPrefs.SetInt("sounds", difficulty);
+		SceneManager.LoadScene("main");
     }
 }
