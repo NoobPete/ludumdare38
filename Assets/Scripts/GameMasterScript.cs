@@ -19,10 +19,15 @@ public class GameMasterScript : MonoBehaviour
 	public float damageModifier;
 	public int extraCardsToTakeNextRound;
 	[Range(0.01f, 1.2f)]
-	public float linear;
+	public float[] linearRead;
 	[Range(1f, 1.4f)]
-	public float exponent;
+	public float[] exponentRead;
 	[Range(0f, 5f)]
+	public float[] offsetRead;
+	public int[] dragonHealth;
+
+	public float linear;
+	public float exponent;
 	public float offset;
 	public bool nextCoinGivesExtra = false;
 	public int nextCoinGivesExtraMultiplyer = 1;
@@ -42,6 +47,13 @@ public class GameMasterScript : MonoBehaviour
 		actionDecks = new List<BuyActionDeckScript>();
 
 		ResetStats();
+
+		int level = PlayerPrefs.GetInt("level", 1);
+
+		enemyBossHealth = dragonHealth[level];
+		linear = linearRead[level];
+		exponent = exponentRead[level];
+		offset = offsetRead[level];
 	}
 
 	private void ResetStats()
