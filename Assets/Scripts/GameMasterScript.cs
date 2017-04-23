@@ -92,6 +92,7 @@ public class GameMasterScript : MonoBehaviour
 		DeckScript.mainDiscard.ScrapCard(script.numberOfCardsToScrapFromDiscard);
 		HandScript.main.numberOfCardsToScrap += script.numberOfCardsTosCrapFromHand;
 		damageModifier = Mathf.Min(script.damgeTakenThisRoundModifier, damageModifier);
+		extraCardsToTakeNextRound += script.extraCardsToTakeNextRound;
 
 		if (enemyNumber - script.attackPoints < 0)
 		{
