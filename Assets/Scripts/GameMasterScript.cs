@@ -5,116 +5,123 @@ using UnityEngine;
 
 public class GameMasterScript : MonoBehaviour
 {
-	public static GameMasterScript main;
+    public static GameMasterScript main;
 
-	public int gameTurnNumber = 0;
-	public int actionPointsLeft;
-	public int goldAmount;
-	public int buyPoints;
-	public int enemyNumber = 0;
-	public int bricks = 0;
-	public int health = 100;
-	public int enemyBossHealth = 1000;
+    public int gameTurnNumber = 0;
+    public int actionPointsLeft;
+    public int goldAmount;
+    public int buyPoints;
+    public int enemyNumber = 0;
+    public int bricks = 0;
+    public int health = 100;
+    public int enemyBossHealth = 1000;
+    [Range(0.01f,1.2f)]
+    public float linear;
+    [Range(1f,1.4f)]
+    public float exponent;
+    [Range(0f,5f)]
+    public float offset;
 
 
-	// Use this for initialization
-	void Start()
-	{
-		main = this;
+    // Use this for initialization
+    void Start()
+    {
+        main = this;
 
-		ResetStats();
-	}
+        ResetStats();
+    }
 
-	private void ResetStats()
-	{
-		actionPointsLeft = 1;
-		goldAmount = 0;
-		buyPoints = 1;
-	}
+    private void ResetStats()
+    {
+        actionPointsLeft = 1;
+        goldAmount = 0;
+        buyPoints = 1;
+    }
 
-	// Update is called once per frame
-	void Update()
-	{
+    // Update is called once per frame
+    void Update()
+    {
 
-	}
+    }
 
-	public void EndTurn()
-	{
-		HandScript hand = HandScript.main;
-		hand.DiscardAllCardsInHand();
+    public void EndTurn()
+    {
+        HandScript hand = HandScript.main;
+        hand.DiscardAllCardsInHand();
 
-		bricks += goldAmount;
+        bricks += goldAmount;
 
-		gameTurnNumber++;
+        gameTurnNumber++;
 
-		health -= enemyNumber;
+        health -= enemyNumber;
 
-		enemyNumber = enemyNumber + gameTurnNumber;
 
-		ResetStats();
+        enemyNumber += (int)Mathf.Round(offset + linear * gameTurnNumber + Mathf.Pow(exponent, gameTurnNumber));
 
-		for (int i = 0; i < 5; i++)
-		{
-			hand.DrawCardsFromDeck();
-		}
-	}
+        ResetStats();
 
-	public void ApplyCardEffects(GameObject card)
-	{
-		CardScript script = card.GetComponent<CardScript>();
+        for (int i = 0; i < 5; i++)
+        {
+            hand.DrawCardsFromDeck();
+        }
+    }
 
-		if (script == null)
-		{
-			throw new Exception("Card dose not have a card script");
-		}
+    public void ApplyCardEffects(GameObject card)
+    {
+        CardScript script = card.GetComponent<CardScript>();
 
-		goldAmount += script.goldAmountOnPlay;
-		actionPointsLeft += script.numberOfNewActionPoints;
-		HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
-		if (enemyNumber - script.attackPoints < 0)
-		{
+        if (script == null)
+        {
+            throw new Exception("Card dose not have a card script");
+        }
 
-			enemyBossHealth -= script.attackPoints - enemyNumber;
-			enemyNumber = 0;
-		}
-		else
-		{
-			enemyNumber -= script.attackPoints;
-		}
+        goldAmount += script.goldAmountOnPlay;
+        actionPointsLeft += script.numberOfNewActionPoints;
+        HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
+        if (enemyNumber - script.attackPoints < 0)
+        {
 
-	}
+            enemyBossHealth -= script.attackPoints - enemyNumber;
+            enemyNumber = 0;
+        }
+        else
+        {
+            enemyNumber -= script.attackPoints;
+        }
 
-	public bool CanBuyThisCard(GameObject card)
-	{
-		CardScript script = card.GetComponent<CardScript>();
+    }
 
-		if (goldAmount >= script.cost && buyPoints > 0)
-		{
-			goldAmount -= script.cost;
-			buyPoints -= 1;
+    public bool CanBuyThisCard(GameObject card)
+    {
+        CardScript script = card.GetComponent<CardScript>();
 
-			return true;
-		}
+        if (goldAmount >= script.cost && buyPoints > 0)
+        {
+            goldAmount -= script.cost;
+            buyPoints -= 1;
 
-		return false;
-	}
+            return true;
+        }
 
-	public bool CanPlayThisCard(GameObject card)
-	{
-		CardScript script = card.GetComponent<CardScript>();
+        return false;
+    }
 
-		if (script.isActionCard)
-		{
-			if (actionPointsLeft > 0)
-			{
-				actionPointsLeft--;
-				return true;
-			}
-		}
-		else
-		{
-			return true;
-		}
-		return false;
-	}
+    public bool CanPlayThisCard(GameObject card)
+    {
+        CardScript script = card.GetComponent<CardScript>();
+
+        if (script.isActionCard)
+        {
+            if (actionPointsLeft > 0)
+            {
+                actionPointsLeft--;
+                return true;
+            }
+        }
+        else
+        {
+            return true;
+        }
+        return false;
+    }
 }
