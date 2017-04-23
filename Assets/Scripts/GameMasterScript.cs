@@ -15,6 +15,7 @@ public class GameMasterScript : MonoBehaviour
     public int bricks = 0;
     public int health = 100;
     public int enemyBossHealth = 1000;
+	public int extraGoldNextRound;
     [Range(0.01f,1.2f)]
     public float linear;
     [Range(1f,1.4f)]
@@ -36,7 +37,8 @@ public class GameMasterScript : MonoBehaviour
         actionPointsLeft = 1;
         goldAmount = 0;
         buyPoints = 1;
-    }
+		extraGoldNextRound = 0;
+	}
 
     // Update is called once per frame
     void Update()
@@ -55,6 +57,7 @@ public class GameMasterScript : MonoBehaviour
 
         health -= enemyNumber;
 
+		goldAmount += extraGoldNextRound;
 
         enemyNumber += (int)Mathf.Round(offset + linear * gameTurnNumber + Mathf.Pow(exponent, gameTurnNumber));
 
@@ -78,6 +81,10 @@ public class GameMasterScript : MonoBehaviour
         goldAmount += script.goldAmountOnPlay;
         actionPointsLeft += script.numberOfNewActionPoints;
         HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
+		buyPoints += script.buyPoints;
+		extraGoldNextRound += script.extraGoldNextRound;
+		DeckScript.mainDiscard.ScrapCard(script.numberOfCardsToScrapFromDiscard);
+
         if (enemyNumber - script.attackPoints < 0)
         {
 

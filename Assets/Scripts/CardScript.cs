@@ -11,10 +11,12 @@ public class CardScript : MonoBehaviour
 	public int numberOfNewActionPoints = 0;
 
 	public int attackPoints = 0;
+	public int buyPoints = 0;
+	public int extraGoldNextRound = 0;
+	public int numberOfCardsToScrapFromDiscard = 0;
 
 	[Header("Action card")]
 	public bool isActionCard = false;
-
 
 	// Use this for initialization
 	void Start()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,7 +76,7 @@ public class DeckScript : MonoBehaviour
 	public void AddCardToPile(GameObject card)
 	{
 		cardStack.Add(card);
-		cardStackRotation.Add(Random.Range(-randomCardRotation, randomCardRotation));
+		cardStackRotation.Add(UnityEngine.Random.Range(-randomCardRotation, randomCardRotation));
 	}
 
 	public GameObject TakeTopCard()
@@ -121,7 +122,7 @@ public class DeckScript : MonoBehaviour
 		{
 			n--;
 
-			int k = Random.Range(1, n + 1);
+			int k = UnityEngine.Random.Range(1, n + 1);
 			GameObject value = cardStack[k];
 			cardStack[k] = cardStack[n];
 			cardStack[n] = value;
@@ -131,5 +132,48 @@ public class DeckScript : MonoBehaviour
 	public void AddBasicCardToPile()
 	{
 		AddCardToPile(Instantiate<GameObject>(basicCard));
+	}
+
+	public bool ScrapCard()
+	{
+		GameObject element = TakeRandomCard();
+
+		if (element != null)
+		{
+			Destroy(element);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public bool ScrapCard(int amount)
+	{
+		for (int i = 0; i < amount; i++)
+		{
+			bool result = ScrapCard();
+			if (!result)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public GameObject TakeRandomCard()
+	{
+		if (cardStack.Count == 0)
+		{
+			return null;
+		}
+
+		int target = UnityEngine.Random.Range(0, cardStack.Count - 1);
+
+		GameObject element = cardStack[target];
+		cardStack.RemoveAt(target);
+		cardStackRotation.RemoveAt(target);
+		return element;
 	}
 }
