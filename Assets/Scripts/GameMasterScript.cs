@@ -94,6 +94,15 @@ public class GameMasterScript : MonoBehaviour
 		damageModifier = Mathf.Min(script.damgeTakenThisRoundModifier, damageModifier);
 		extraCardsToTakeNextRound += script.extraCardsToTakeNextRound;
 
+		if (script.discardHandAndDrawNewCards)
+		{
+			HandScript hand = HandScript.main;
+
+			int numberOfCards = hand.NumberOfCards();
+			hand.DiscardAllCardsInHand();
+			hand.DrawCardsFromDeck(numberOfCards - 1);
+		}
+
 		if (enemyNumber - script.attackPoints < 0)
 		{
 

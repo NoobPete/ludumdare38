@@ -124,4 +124,9 @@ public class HandScript : MonoBehaviour
 		}
 		return false;
 	}
+
+	public int NumberOfCards()
+	{
+		return cardStack.Count;
+	}
 }
