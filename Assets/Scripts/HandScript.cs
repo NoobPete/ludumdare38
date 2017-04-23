@@ -24,6 +24,11 @@ public class HandScript : MonoBehaviour
 	public float movingSpeedOfCard;
 
 	public int numberOfCardsToScrap = 0;
+	[Range(0f, 20f)]
+	public float rotationAmount;
+
+	[Range(0f, 20f)]
+	public float rotationAmountHeight;
 
 	// Use this for initialization
 	void Start()
@@ -56,11 +61,11 @@ public class HandScript : MonoBehaviour
 				targetPosition = this.transform.position + this.transform.forward * cardForwardOffset * i + this.transform.right * cardSpacing * i;
 			}
 
-			targetPosition -= this.transform.right * cardSpacing * cardStack.Count * 0.5f + this.transform.right * cardSpacing * -0.5f;
+			targetPosition -= this.transform.right * cardSpacing * cardStack.Count * 0.5f + this.transform.right * cardSpacing * -0.5f + this.transform.up * Mathf.Abs((rotationAmountHeight * i) - (rotationAmountHeight * cardStack.Count / 2));
 
 			cardStack[i].transform.position = Vector3.Lerp(cardStack[i].transform.position, targetPosition, movingSpeedOfCard);
 
-			cardStack[i].transform.rotation = Quaternion.Lerp(cardStack[i].transform.rotation, this.transform.rotation * Quaternion.Euler(0, 180f, 0), movingSpeedOfCard);
+			cardStack[i].transform.rotation = Quaternion.Lerp(cardStack[i].transform.rotation, this.transform.rotation * Quaternion.Euler(0, 180f, ((rotationAmount * i)-(rotationAmount * cardStack.Count / 2))), movingSpeedOfCard);
 		}
 
 		cardSpacing = cardSpacingReal;
