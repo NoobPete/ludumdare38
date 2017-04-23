@@ -18,6 +18,8 @@ public class CardScript : MonoBehaviour
 	public float damgeTakenThisRoundModifier = 1;
 	public int extraCardsToTakeNextRound = 0;
 	public bool discardHandAndDrawNewCards = false;
+	public bool nextCoinGivesExtra = false;
+	public int nextCoinGivesExtraMultiplyer = 1;
 
 	[Header("Action card")]
 	public bool isActionCard = false;

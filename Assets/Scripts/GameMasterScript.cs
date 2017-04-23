@@ -24,6 +24,8 @@ public class GameMasterScript : MonoBehaviour
 	public float exponent;
 	[Range(0f, 5f)]
 	public float offset;
+	public bool nextCoinGivesExtra = false;
+	public int nextCoinGivesExtraMultiplyer = 1;
 
 
 	// Use this for initialization
@@ -84,7 +86,16 @@ public class GameMasterScript : MonoBehaviour
 			throw new Exception("Card dose not have a card script");
 		}
 
-		goldAmount += script.goldAmountOnPlay;
+
+		if (nextCoinGivesExtra && script.goldAmountOnPlay > 0)
+		{
+			goldAmount += script.goldAmountOnPlay * nextCoinGivesExtraMultiplyer;
+			nextCoinGivesExtra = false;
+			nextCoinGivesExtraMultiplyer = 1;
+		} else
+		{
+			goldAmount += script.goldAmountOnPlay;
+		}
 		actionPointsLeft += script.numberOfNewActionPoints;
 		HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
 		buyPoints += script.buyPoints;
@@ -93,6 +104,11 @@ public class GameMasterScript : MonoBehaviour
 		HandScript.main.numberOfCardsToScrap += script.numberOfCardsTosCrapFromHand;
 		damageModifier = Mathf.Min(script.damgeTakenThisRoundModifier, damageModifier);
 		extraCardsToTakeNextRound += script.extraCardsToTakeNextRound;
+		if (script.nextCoinGivesExtra)
+		{
+			nextCoinGivesExtra = true;
+			nextCoinGivesExtraMultiplyer = Mathf.Max(nextCoinGivesExtraMultiplyer, script.nextCoinGivesExtraMultiplyer);
+		}
 
 		if (script.discardHandAndDrawNewCards)
 		{
