@@ -62,6 +62,7 @@ public class GameMasterScript : MonoBehaviour
 
 	public void EndTurn()
 	{
+		SoundPlayerScript.main.PlayPickCardSound();
 		HandScript hand = HandScript.main;
 		hand.DiscardAllCardsInHand();
 
@@ -110,7 +111,11 @@ public class GameMasterScript : MonoBehaviour
 			goldAmount += script.goldAmountOnPlay;
 		}
 		actionPointsLeft += script.numberOfNewActionPoints;
-		HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
+		if (script.numberOfCardsToDraw > 0)
+		{
+			SoundPlayerScript.main.PlayPickCardSound();
+			HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
+		}
 		buyPoints += script.buyPoints;
 		extraGoldNextRound += script.extraGoldNextRound;
 		DeckScript.mainDiscard.ScrapCard(script.numberOfCardsToScrapFromDiscard);

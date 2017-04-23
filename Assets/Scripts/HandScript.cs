@@ -125,6 +125,7 @@ public class HandScript : MonoBehaviour
 				cardStack.Remove(card);
 				GameMasterScript.main.ApplyCardEffects(card);
 				DeckScript.mainDiscard.AddCardToPile(card);
+				SoundPlayerScript.main.PlayPickCardSound();
 			}
 		}
 		return false;

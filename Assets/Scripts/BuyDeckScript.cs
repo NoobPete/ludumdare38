@@ -108,6 +108,7 @@ public class BuyDeckScript : MonoBehaviour
 
 		if (element != null)
 		{
+			SoundPlayerScript.main.PlayPickCardSound();
 			DeckScript.mainDiscard.AddCardToPile(element);
 		}
 	}

@@ -115,6 +115,7 @@ public class DeckScript : MonoBehaviour
 
 	public void ScrambleCards()
 	{
+		SoundPlayerScript.main.PlayScrambleSound();
 		currentCardSpacingOffset = scambleOffset;
 
 		int n = cardStack.Count;
