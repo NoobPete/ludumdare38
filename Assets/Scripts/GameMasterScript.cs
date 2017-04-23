@@ -11,7 +11,10 @@ public class GameMasterScript : MonoBehaviour
 	public int actionPointsLeft;
 	public int goldAmount;
 	public int buyPoints;
-    public int enemyNumber = 0;
+	public int enemyNumber = 0;
+	public int bricks = 0;
+	public int health = 100;
+	public int enemyBossHealth = 1000;
 
 
 	// Use this for initialization
@@ -40,8 +43,13 @@ public class GameMasterScript : MonoBehaviour
 		HandScript hand = HandScript.main;
 		hand.DiscardAllCardsInHand();
 
+		bricks += goldAmount;
+
 		gameTurnNumber++;
-        enemyNumber = enemyNumber + gameTurnNumber;
+
+		health -= enemyNumber;
+
+		enemyNumber = enemyNumber + gameTurnNumber;
 
 		ResetStats();
 
@@ -63,7 +71,16 @@ public class GameMasterScript : MonoBehaviour
 		goldAmount += script.goldAmountOnPlay;
 		actionPointsLeft += script.numberOfNewActionPoints;
 		HandScript.main.DrawCardsFromDeck(script.numberOfCardsToDraw);
+		if (enemyNumber - script.attackPoints < 0)
+		{
 
+			enemyBossHealth -= script.attackPoints - enemyNumber;
+			enemyNumber = 0;
+		}
+		else
+		{
+			enemyNumber -= script.attackPoints;
+		}
 
 	}
 
