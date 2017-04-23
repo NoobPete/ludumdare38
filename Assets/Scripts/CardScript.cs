@@ -20,6 +20,7 @@ public class CardScript : MonoBehaviour
 	public bool discardHandAndDrawNewCards = false;
 	public bool nextCoinGivesExtra = false;
 	public int nextCoinGivesExtraMultiplyer = 1;
+	public int modifyPlayerHealth = 0;
 
 	[Header("Action card")]
 	public bool isActionCard = false;

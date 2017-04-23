@@ -104,6 +104,8 @@ public class GameMasterScript : MonoBehaviour
 		HandScript.main.numberOfCardsToScrap += script.numberOfCardsTosCrapFromHand;
 		damageModifier = Mathf.Min(script.damgeTakenThisRoundModifier, damageModifier);
 		extraCardsToTakeNextRound += script.extraCardsToTakeNextRound;
+		health += script.modifyPlayerHealth;
+
 		if (script.nextCoinGivesExtra)
 		{
 			nextCoinGivesExtra = true;
