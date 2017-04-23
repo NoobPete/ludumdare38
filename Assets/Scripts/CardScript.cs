@@ -15,6 +15,7 @@ public class CardScript : MonoBehaviour
 	public int extraGoldNextRound = 0;
 	public int numberOfCardsToScrapFromDiscard = 0;
 	public int numberOfCardsTosCrapFromHand = 0;
+	public float damgeTakenThisRoundModifier = 1;
 
 	[Header("Action card")]
 	public bool isActionCard = false;
