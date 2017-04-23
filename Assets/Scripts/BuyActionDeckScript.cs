@@ -34,6 +34,9 @@ public class BuyActionDeckScript : MonoBehaviour
 				AddCardToPile(Instantiate(o));
 			}
 		}
+
+		ScrambleCards();
+		GameMasterScript.main.AddActionDeckAsListener(this);
 	}
 
 	// Update is called once per frame

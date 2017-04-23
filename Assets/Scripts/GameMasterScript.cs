@@ -26,12 +26,20 @@ public class GameMasterScript : MonoBehaviour
 	public float offset;
 	public bool nextCoinGivesExtra = false;
 	public int nextCoinGivesExtraMultiplyer = 1;
+	private List<BuyActionDeckScript> actionDecks;
+
+	internal void AddActionDeckAsListener(BuyActionDeckScript buyActionDeckScript)
+	{
+		actionDecks.Add(buyActionDeckScript);
+	}
 
 
 	// Use this for initialization
 	void Start()
 	{
 		main = this;
+
+		actionDecks = new List<BuyActionDeckScript>();
 
 		ResetStats();
 	}
@@ -70,6 +78,11 @@ public class GameMasterScript : MonoBehaviour
 		int extraCards = extraCardsToTakeNextRound;
 
 		ResetStats();
+
+		foreach (BuyActionDeckScript o in actionDecks)
+		{
+			o.ScrambleCards();
+		}
 
 		for (int i = 0; i < 5 + extraCards; i++)
 		{
