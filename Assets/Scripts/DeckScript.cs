@@ -63,14 +63,12 @@ public class DeckScript : MonoBehaviour
 
 			if (isFaceUp)
 			{
-				cardStack[i].transform.rotation = this.transform.rotation * Quaternion.Euler(270f, 180f, 0f);
+				cardStack[i].transform.rotation = this.transform.rotation * Quaternion.Euler(270f, 180f + cardStackRotation[i], 0f);
 			}
 			else
 			{
-				cardStack[i].transform.rotation = this.transform.rotation * Quaternion.Euler(90f, 0f, 0f);
+				cardStack[i].transform.rotation = this.transform.rotation * Quaternion.Euler(90f, 0f + cardStackRotation[i], 0f);
 			}
-
-			cardStack[i].transform.Rotate(this.transform.forward, cardStackRotation[i]);
 		}
 	}
 
