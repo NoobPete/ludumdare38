@@ -11,6 +11,7 @@ public class GameMasterScript : MonoBehaviour
 	public int actionPointsLeft;
 	public int goldAmount;
 	public int buyPoints;
+    public int enemyNumber = 0;
 
 
 	// Use this for initialization
@@ -40,6 +41,7 @@ public class GameMasterScript : MonoBehaviour
 		hand.DiscardAllCardsInHand();
 
 		gameTurnNumber++;
+        enemyNumber = enemyNumber + gameTurnNumber;
 
 		ResetStats();
 
