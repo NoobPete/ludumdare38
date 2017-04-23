@@ -17,6 +17,7 @@ public class GameMasterScript : MonoBehaviour
 	public int enemyBossHealth = 1000;
 	public int extraGoldNextRound;
 	public float damageModifier;
+	public int extraCardsToTakeNextRound;
 	[Range(0.01f, 1.2f)]
 	public float linear;
 	[Range(1f, 1.4f)]
@@ -40,6 +41,7 @@ public class GameMasterScript : MonoBehaviour
 		buyPoints = 1;
 		extraGoldNextRound = 0;
 		damageModifier = 1;
+		extraCardsToTakeNextRound = 0;
 	}
 
 	// Update is called once per frame
@@ -63,9 +65,11 @@ public class GameMasterScript : MonoBehaviour
 
 		enemyNumber += (int)Mathf.Round(offset + linear * gameTurnNumber + Mathf.Pow(exponent, gameTurnNumber));
 
+		int extraCards = extraCardsToTakeNextRound;
+
 		ResetStats();
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 5 + extraCards; i++)
 		{
 			hand.DrawCardsFromDeck();
 		}
