@@ -84,6 +84,7 @@ public class GameMasterScript : MonoBehaviour
 		buyPoints += script.buyPoints;
 		extraGoldNextRound += script.extraGoldNextRound;
 		DeckScript.mainDiscard.ScrapCard(script.numberOfCardsToScrapFromDiscard);
+		HandScript.main.numberOfCardsToScrap += script.numberOfCardsTosCrapFromHand;
 
         if (enemyNumber - script.attackPoints < 0)
         {

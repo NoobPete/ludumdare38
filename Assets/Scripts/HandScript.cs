@@ -23,6 +23,8 @@ public class HandScript : MonoBehaviour
 	[Range(0f, 1f)]
 	public float movingSpeedOfCard;
 
+	public int numberOfCardsToScrap = 0;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -106,6 +108,13 @@ public class HandScript : MonoBehaviour
 	{
 		if (cardStack.Contains(card))
 		{
+			if (numberOfCardsToScrap > 0)
+			{
+				cardStack.Remove(card);
+				Destroy(card);
+				numberOfCardsToScrap--;
+			}
+
 			if (GameMasterScript.main.CanPlayThisCard(card))
 			{
 				cardStack.Remove(card);
