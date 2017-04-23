@@ -10,6 +10,8 @@ public class CardScript : MonoBehaviour
 	public int numberOfCardsToDraw = 0;
 	public int numberOfNewActionPoints = 0;
 
+	public int attackPoints = 0;
+
 	[Header("Action card")]
 	public bool isActionCard = false;
 
