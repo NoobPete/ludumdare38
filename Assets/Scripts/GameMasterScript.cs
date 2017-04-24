@@ -147,6 +147,11 @@ public class GameMasterScript : MonoBehaviour
 		extraCardsToTakeNextRound += script.extraCardsToTakeNextRound;
 		health += script.modifyPlayerHealth;
 
+		if (health <= 0)
+		{
+			LoseGame();
+		}
+
 		if (script.nextCoinGivesExtra)
 		{
 			nextCoinGivesExtra = true;
