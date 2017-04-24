@@ -74,6 +74,11 @@ public class GameMasterScript : MonoBehaviour
 
 	public void EndTurn()
 	{
+		if (gameOver)
+		{
+			return;
+		}
+
 		SoundPlayerScript.main.PlayPickCardSound();
 		HandScript hand = HandScript.main;
 		hand.DiscardAllCardsInHand();
@@ -83,6 +88,11 @@ public class GameMasterScript : MonoBehaviour
 		gameTurnNumber++;
 
 		health -= (int)(enemyNumber * damageModifier);
+
+		if (health <= 0)
+		{
+			LoseGame();
+		}
 
 		goldAmount += extraGoldNextRound;
 
@@ -118,7 +128,8 @@ public class GameMasterScript : MonoBehaviour
 			goldAmount += script.goldAmountOnPlay * nextCoinGivesExtraMultiplyer;
 			nextCoinGivesExtra = false;
 			nextCoinGivesExtraMultiplyer = 1;
-		} else
+		}
+		else
 		{
 			goldAmount += script.goldAmountOnPlay;
 		}
@@ -136,6 +147,11 @@ public class GameMasterScript : MonoBehaviour
 		extraCardsToTakeNextRound += script.extraCardsToTakeNextRound;
 		health += script.modifyPlayerHealth;
 
+		if (health <= 0)
+		{
+			LoseGame();
+		}
+
 		if (script.nextCoinGivesExtra)
 		{
 			nextCoinGivesExtra = true;
@@ -148,7 +164,7 @@ public class GameMasterScript : MonoBehaviour
 
 			int numberOfCards = hand.NumberOfCards();
 			hand.DiscardAllCardsInHand();
-			hand.DrawCardsFromDeck(numberOfCards - 1);
+			hand.DrawCardsFromDeck(numberOfCards);
 		}
 
 		if (enemyNumber - script.attackPoints < 0)
@@ -156,6 +172,10 @@ public class GameMasterScript : MonoBehaviour
 
 			enemyBossHealth -= script.attackPoints - enemyNumber;
 			enemyNumber = 0;
+			if (enemyBossHealth <= 0)
+			{
+				WinGame();
+			}
 		}
 		else
 		{
@@ -166,6 +186,11 @@ public class GameMasterScript : MonoBehaviour
 
 	public bool CanBuyThisCard(GameObject card)
 	{
+		if (gameOver)
+		{
+			return false;
+		}
+
 		CardScript script = card.GetComponent<CardScript>();
 
 		if (goldAmount >= script.cost && buyPoints > 0)
@@ -181,6 +206,11 @@ public class GameMasterScript : MonoBehaviour
 
 	public bool CanPlayThisCard(GameObject card)
 	{
+		if (gameOver)
+		{
+			return false;
+		}
+
 		CardScript script = card.GetComponent<CardScript>();
 
 		if (script.isActionCard)
@@ -196,5 +226,25 @@ public class GameMasterScript : MonoBehaviour
 			return true;
 		}
 		return false;
+	}
+
+
+	private bool gameOver = false;
+
+	public GameObject canvas;
+	public GameObject winPanel;
+	public void WinGame()
+	{
+		gameOver = true;
+
+		Instantiate(winPanel, canvas.transform);
+	}
+
+	public GameObject losePanel;
+	public void LoseGame()
+	{
+		gameOver = true;
+
+		Instantiate(losePanel, canvas.transform);
 	}
 }
