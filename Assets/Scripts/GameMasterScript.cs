@@ -148,7 +148,7 @@ public class GameMasterScript : MonoBehaviour
 
 			int numberOfCards = hand.NumberOfCards();
 			hand.DiscardAllCardsInHand();
-			hand.DrawCardsFromDeck(numberOfCards - 1);
+			hand.DrawCardsFromDeck(numberOfCards);
 		}
 
 		if (enemyNumber - script.attackPoints < 0)
