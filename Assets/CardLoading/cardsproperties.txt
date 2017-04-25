@@ -1,0 +1,6 @@
+Name,Cost,Description
+First card,1,This is a card that should not be play?
+Second card,2,This is just a card :)
+Let’s see what this does,0,Don’t you see this is ezpc?
+MEDIC,1,This card dose not heal you. Don’t be silly
+Nice meme,10,Opens www.niceme.me
