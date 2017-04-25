@@ -36,6 +36,6 @@ public class CardGenerator : MonoBehaviour
 
 	public static int NumberOfCards()
 	{
-		return cardStats.GetLength(0);
+		return cardStats.GetLength(0)-1;
 	}
 }
