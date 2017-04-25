@@ -27,6 +27,7 @@ public class CardGenerator : MonoBehaviour
 		GameObject result = Instantiate(blankCardStatic);
 
 		Text[] textFields = result.GetComponentsInChildren<Text>();
+
 		textFields[0].text = cardStats[0, cardID];
 		textFields[1].text = cardStats[1, cardID];
 		textFields[2].text = cardStats[2, cardID];
@@ -36,6 +37,6 @@ public class CardGenerator : MonoBehaviour
 
 	public static int NumberOfCards()
 	{
-		return cardStats.GetLength(0)-1;
+		return cardStats.GetLength(1)-1;
 	}
 }
